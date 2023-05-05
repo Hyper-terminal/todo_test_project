@@ -13,7 +13,7 @@ const createTodo = async (req, res) => {
   }
 };
 
-const getTodos = async (req, res) => {
+const getTodo = async (req, res) => {
   try {
     const todos = await Todo.findAll();
     res.json(todos);
@@ -22,4 +22,32 @@ const getTodos = async (req, res) => {
   }
 };
 
-module.exports = { createTodo, getTodos };
+const updateTodo = async (req, res) => {
+  try {
+    const todo = await Todo.findByPk(req.params.id);
+    if (!todo) {
+      return res.status(404).json({ message: "Todo not found" });
+    }
+    todo.status = req.body.status;
+    await todo.save();
+    res.json(todo);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const deleteTodo = async (req, res) => {
+  try {
+    const todo = await Todo.findByPk(req.params.id);
+    if (!todo) {
+      return res.status(404).json({ message: "Todo not found" });
+    }
+    await todo.destroy();
+    res.json({ message: "Todo deleted" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = { createTodo, getTodo, deleteTodo, updateTodo };
+ 

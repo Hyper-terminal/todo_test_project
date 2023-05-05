@@ -1,6 +1,6 @@
 import React from "react";
 
-const RemainingTodo = ({ todos, onTodoUpdate, onTodoDelete }) => {
+const CompletedTodoList = ({ todos, onTodoUpdate, onTodoDelete }) => {
   const handleUpdate = async (id) => {
     onTodoUpdate(id);
   };
@@ -15,7 +15,7 @@ const RemainingTodo = ({ todos, onTodoUpdate, onTodoDelete }) => {
         <li key={todo.id}>
           {todo.name}: {todo.description}
           <button onClick={() => handleUpdate(todo.id)}>
-            Mark as completed
+            Mark as not completed
           </button>
           <button onClick={() => handleDelete(todo.id)}>Delete</button>
         </li>
@@ -24,4 +24,4 @@ const RemainingTodo = ({ todos, onTodoUpdate, onTodoDelete }) => {
   );
 };
 
-export default RemainingTodo;
+export default CompletedTodoList;
